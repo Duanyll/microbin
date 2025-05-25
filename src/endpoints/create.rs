@@ -24,7 +24,7 @@ struct IndexTemplate<'a> {
 
 #[get("/")]
 pub async fn index() -> impl Responder {
-    HttpResponse::Ok().content_type("text/html").body(
+    HttpResponse::Ok().content_type("text/html; charset=utf-8").body(
         IndexTemplate {
             args: &ARGS,
             status: String::from(""),
@@ -38,7 +38,7 @@ pub async fn index() -> impl Responder {
 pub async fn index_with_status(param: web::Path<String>) -> HttpResponse {
     let status = param.into_inner();
 
-    return HttpResponse::Ok().content_type("text/html").body(
+    return HttpResponse::Ok().content_type("text/html; charset=utf-8").body(
         IndexTemplate {
             args: &ARGS,
             status,
@@ -96,6 +96,7 @@ pub async fn create(
         private: false,
         readonly: false,
         editable: ARGS.editable,
+        hide_read_count: false,
         encrypt_server: false,
         encrypted_key: Some(String::from("")),
         encrypt_client: false,
@@ -162,6 +163,10 @@ pub async fn create(
                     new_pasta.encrypted_key =
                         Some(std::str::from_utf8(&chunk).unwrap().to_string());
                 }
+                continue;
+            }
+            "hide_read_count" => {
+                new_pasta.hide_read_count = true;
                 continue;
             }
             "expiration" => {
