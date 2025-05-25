@@ -17,6 +17,9 @@ This simply provides a branch (dev) with many fixes from microbin main repositor
 -  Minor fixups #211
 -  Prefix some URLs with args.public_path_as_str() #194
 -  Checkbox to hide read counter per pasta #145 
+-  feat: paste file to upload #208
+-  Fix MICROBIN_ETERNAL_PASTA #215
+-  Fix #235 Burn After -> First Read gets 2 reads to create content #283
 
 
 ![Screenshot](.github/index.png)
